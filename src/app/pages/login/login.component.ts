@@ -9,4 +9,5 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 })
 export class LoginComponent {
 
+  anoAtual = new Date().getFullYear();
 }
