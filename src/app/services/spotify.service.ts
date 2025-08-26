@@ -11,17 +11,15 @@ export class SpotifyService {
   async obterUrlLogin(): Promise<string> {
 
     const codigoAleatorio = await this.gerarCodigoAleatorio();
-
     const authPoint = `${SpotifyConfiguration.authEndpoint}?`;
     const clientId = `client_id=${SpotifyConfiguration.clientId}&`;
     const urlRedirect = `redirect_uri=${SpotifyConfiguration.redirectUrl}&`;
     const scopes = `scope=${SpotifyConfiguration.scopes.join('%20')}&`;
     const codeChallengeMethod = 'code_challenge_method=S256&';
-    const codeChallengeParam = 'code_challenge' + codigoAleatorio + '&';
+    const codeChallengeParam = 'code_challenge=' + codigoAleatorio + '&';
     const responseType = 'response_type=code';
 
-    return `${authPoint}${clientId}${urlRedirect}${scopes}
-      ${codeChallengeMethod}${codeChallengeParam}${responseType}`;
+    return `${authPoint}${clientId}${urlRedirect}${scopes}${codeChallengeMethod}${codeChallengeParam}${responseType}`;
   }
 
   async gerarCodigoAleatorio() {
@@ -53,28 +51,36 @@ export class SpotifyService {
   }
 
   async definirAcesstoken(code: string) {
-    const codigoVerificador = localStorage.getItem('code_verifier');
-    const tokenEndpont = SpotifyConfiguration.apiTokenEndpoint;
+    const codeVerifier = localStorage.getItem('code_verifier');
 
+    const tokenEndpoint = SpotifyConfiguration.apiTokenEndpoint;
     const params = new URLSearchParams();
     params.append("client_id", SpotifyConfiguration.clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
     params.append("redirect_uri", SpotifyConfiguration.redirectUrl);
-    params.append("code_verifier", codigoVerificador!);
+    params.append("code_verifier", codeVerifier!);
 
     try {
-      const response = await fetch(tokenEndpont, {
-        method: "POST",
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      const response = await fetch(tokenEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: params
       });
 
-      const dados = await response.json();
-      let acessToken = dados.access_token;
+      const data = await response.json();
 
+      if (data.access_token) {
+        alert('Token de acesso obtido com sucesso: ' + data.access_token);
+        return true;
+      } else {
+        console.error('Falha ao obter o token de acesso:', data);
+        return false;
+      }
     } catch (error) {
-      console.error('Erro ao obter token:', error);
+      console.error('Ocorreu um erro ao obter o token de acesso:', error);
       return false;
     }
   }
