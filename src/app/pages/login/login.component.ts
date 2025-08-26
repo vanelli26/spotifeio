@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
 import {SpotifyService} from "../../services/spotify.service";
 
 @Component({
@@ -8,13 +8,21 @@ import {SpotifyService} from "../../services/spotify.service";
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  ngOnInit(): void {
+    this.verficarCodigoUrlCallback();
+  }
 
   serviceSpotify = inject(SpotifyService);
   anoAtual = new Date().getFullYear();
 
   async fazerLogin() {
     const url = await this.serviceSpotify.obterUrlLogin();
-    console.log(url);
+    window.location.href = url;
+  }
+
+  verficarCodigoUrlCallback() {
+
   }
 }
