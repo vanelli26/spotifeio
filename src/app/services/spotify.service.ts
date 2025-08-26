@@ -51,4 +51,22 @@ export class SpotifyService {
     .replace(/\//g, '_')
     .replace(/=+$/, '');
   }
+
+  definirAcesstoken(code: string) {
+    const codigoVerificador = localStorage.getItem('code_verifier');
+    const tokenEndpont = SpotifyConfiguration.apiTokenEndpoint;
+
+    const params = new URLSearchParams();
+    params.append("client_id", SpotifyConfiguration.clientId);
+    params.append("grant_type", "authorization_code");
+    params.append("code", code);
+    params.append("redirect_uri", SpotifyConfiguration.redirectUrl);
+    params.append("code_verifier", codigoVerificador!);
+
+    fetch(tokenEndpont, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params
+    })
+  }
 }

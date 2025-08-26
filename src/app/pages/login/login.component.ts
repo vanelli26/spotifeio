@@ -23,6 +23,11 @@ export class LoginComponent implements OnInit {
   }
 
   verficarCodigoUrlCallback() {
+    const params = new URLSearchParams(window.location.search);
+    const codigo = params.get("code");
 
+    if (codigo) {
+      const sucesso = this.serviceSpotify.definirAcesstoken(codigo);
+    }
   }
 }
