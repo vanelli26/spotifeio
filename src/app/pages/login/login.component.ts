@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { SpotifyService } from "../../services/spotify.service";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
+import {SpotifyService} from "../../services/spotify.service";
 
 @Component({
   selector: 'app-login',
@@ -15,5 +15,6 @@ export class LoginComponent {
 
   async fazerLogin() {
     const url = await this.serviceSpotify.obterUrlLogin();
+    console.log(url);
   }
 }
