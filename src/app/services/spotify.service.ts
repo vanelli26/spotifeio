@@ -52,7 +52,7 @@ export class SpotifyService {
     .replace(/=+$/, '');
   }
 
-  definirAcesstoken(code: string) {
+  async definirAcesstoken(code: string) {
     const codigoVerificador = localStorage.getItem('code_verifier');
     const tokenEndpont = SpotifyConfiguration.apiTokenEndpoint;
 
@@ -63,10 +63,19 @@ export class SpotifyService {
     params.append("redirect_uri", SpotifyConfiguration.redirectUrl);
     params.append("code_verifier", codigoVerificador!);
 
-    fetch(tokenEndpont, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params
-    })
+    try {
+      const response = await fetch(tokenEndpont, {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: params
+      });
+
+      const dados = await response.json();
+      let acessToken = dados.access_token;
+
+    } catch (error) {
+      console.error('Erro ao obter token:', error);
+      return false;
+    }
   }
 }
