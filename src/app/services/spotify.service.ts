@@ -1,10 +1,14 @@
 import {Injectable} from "@angular/core";
 import {SpotifyConfiguration} from "../../enviroment/enviroment";
+import SpotifyWebApi from 'spotify-web-api-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
+
+  spotifyApi = new SpotifyWebApi();
+  usuario: SpotifyApi.CurrentUsersProfileResponse | null = null;
 
   constructor() {}
 
@@ -70,13 +74,17 @@ export class SpotifyService {
         body: params
       });
 
-      const data = await response.json();
+      const dados = await response.json();
+      const acessToken = dados.access_token;
 
-      if (data.access_token) {
-        alert('Token de acesso obtido com sucesso: ' + data.access_token);
-        return true;
+      if (acessToken) {
+        this.spotifyApi.setAccessToken(acessToken);
+        localStorage.setItem('access_token', acessToken);
+        this.usuario = await this.spotifyApi.getMe();
+        console.log(this.usuario);
+        return !!this.usuario;
       } else {
-        console.error('Falha ao obter o token de acesso:', data);
+        console.error('Falha ao obter o token de acesso');
         return false;
       }
     } catch (error) {
