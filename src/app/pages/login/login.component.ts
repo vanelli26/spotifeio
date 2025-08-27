@@ -22,12 +22,16 @@ export class LoginComponent implements OnInit {
     window.location.href = url;
   }
 
-  verficarCodigoUrlCallback() {
+  async verficarCodigoUrlCallback() {
     const params = new URLSearchParams(window.location.search);
     const codigo = params.get("code");
 
     if (codigo) {
-      const sucesso = this.serviceSpotify.definirAcesstoken(codigo);
+      const sucesso = await this.serviceSpotify.definirAcesstoken(codigo);
+
+      if (sucesso) {
+
+      }
     }
   }
 }

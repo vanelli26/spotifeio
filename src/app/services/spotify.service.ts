@@ -81,7 +81,6 @@ export class SpotifyService {
         this.spotifyApi.setAccessToken(acessToken);
         localStorage.setItem('access_token', acessToken);
         this.usuario = await this.spotifyApi.getMe();
-        console.log(this.usuario);
         return !!this.usuario;
       } else {
         console.error('Falha ao obter o token de acesso');
