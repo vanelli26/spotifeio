@@ -1,1 +1,22 @@
 @use 'variaveis' as *;
+
+:host {
+  max-width: 300px;
+  min-height: 100vh;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: $cor-fundo-secundaria;
+  box-shadow: 1px 1px 15px $cor-sombra;
+
+  .menus {
+
+    .image-container {
+      min-height: 120px;
+
+      img {
+        width: 70%;
+      }
+    }
+  }
+}
