@@ -10,12 +10,34 @@
   box-shadow: 1px 1px 15px $cor-sombra;
 
   .menus {
+    flex-grow: 1;
+    flex-direction: column;
+    height: 100%;
+    padding: 0px 40px 0px 40px;
 
     .image-container {
       min-height: 120px;
 
       img {
         width: 70%;
+      }
+    }
+
+    .menu-container {
+      width: 100%;
+
+      &.flex {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      &.opcoes {
+        min-height: 150px;
+
+        * {
+          margin-bottom: 10px;
+        }
       }
     }
   }
