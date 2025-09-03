@@ -1,4 +1,4 @@
-<button type="button">
+<button type="button" [class.selecionado]="botaoSelecionado()" (click)="onClick.emit()">
   <ng-content></ng-content>
   <span>{{nome()}}</span>
 </button>

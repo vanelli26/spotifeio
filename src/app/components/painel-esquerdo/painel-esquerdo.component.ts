@@ -20,6 +20,8 @@ export class PainelEsquerdoComponent implements OnInit {
   faSearch = faSearch;
   faUser = faUser;
 
+  menuSelecionado: string = 'Inicio';
+
   ngOnInit(): void {
 
   }
