@@ -109,4 +109,22 @@ export class SpotifyService {
       return [];
     }
   }
+
+  async carregarUsuario() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      return null;
+    }
+
+    try {
+      this.spotifyApi.setAccessToken(accessToken);
+      const me = await this.spotifyApi.getMe();
+      this.usuario = me as SpotifyApi.CurrentUsersProfileResponse;
+      return this.usuario;
+    } catch (e) {
+      console.error('Não foi possível carregar o usuário Spotify:', e);
+      this.usuario = null;
+      return null;
+    }
+  }
 }

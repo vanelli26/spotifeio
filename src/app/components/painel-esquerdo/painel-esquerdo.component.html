@@ -31,14 +31,9 @@
 
     <div class="playlist-scroll">
       @for ( playlist of playlists ; track playlist.id) {
-<!--        <img src="{{playlist.images.pop()?.url}}" alt="capa" />-->
+        <img src="{{playlist.images.pop()?.url}}" alt="capa" />
 
-        <app-botao-menu
-          [nome]="playlist.name"
-          [botaoSelecionado]="menuSelecionado === playlist.name"
-          (onClick)="menuSelecionado = playlist.name">
-          <fa-icon [icon]="faMusic"></fa-icon>
-        </app-botao-menu>
+
       }
     </div>
   </div>
