@@ -39,6 +39,16 @@
           margin-bottom: 10px;
         }
       }
+
+      .playlist-titulo {
+        margin: 10px 0px;
+        align-self: flex-start;
+        font-weight: 700;
+        font-size: 0.7rem;
+        color: $cor-texto-secundario;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
     }
   }
 }

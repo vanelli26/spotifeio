@@ -91,4 +91,22 @@ export class SpotifyService {
       return false;
     }
   }
+
+  async carregarPlaylists(offset = 0, limit = 50): Promise<SpotifyApi.PlaylistObjectSimplified[]> {
+    const acessToken = localStorage.getItem('access_token');
+    if (!acessToken) {
+      return [];
+    }
+
+    try {
+      this.spotifyApi.setAccessToken(acessToken);
+      const playlists =
+        await this.spotifyApi.getUserPlaylists(this.usuario!.id, {offset, limit});
+
+      return playlists.items as SpotifyApi.PlaylistObjectSimplified[] ?? [];
+    } catch (error) {
+      console.error('Ocorreu um erro ao obter as playlists:', error);
+      return [];
+    }
+  }
 }
