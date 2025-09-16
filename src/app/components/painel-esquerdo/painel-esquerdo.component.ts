@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from "@angular/core";
 import {BotaoMenuComponent} from '../botao-menu/botao-menu.component';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {faHome, faMusic, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faHome, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
 import {SpotifyService} from '../../services/spotify.service';
 
 @Component({
@@ -20,10 +20,9 @@ export class PainelEsquerdoComponent implements OnInit {
   faHome = faHome;
   faSearch = faSearch;
   faUser = faUser;
-  faMusic = faMusic;
 
   menuSelecionado: string = 'Inicio';
-  playlists: SpotifyApi.PlaylistObjectSimplified[] = [];
+  playlists = signal<SpotifyApi.PlaylistObjectSimplified[]>([]);
   spotifyService = inject(SpotifyService);
 
   ngOnInit(): void {
@@ -31,7 +30,6 @@ export class PainelEsquerdoComponent implements OnInit {
   }
 
   async carregarPlaylists() {
-    this.playlists = await this.spotifyService.carregarPlaylists();
-    console.log(this.playlists);
+    this.playlists.set(await this.spotifyService.carregarPlaylists());
   }
 }

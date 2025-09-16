@@ -1,5 +1,7 @@
 @use 'variaveis' as *;
 
+$h-playlist-scroll: calc(120px + 150px + 10px + 70px);
+
 :host {
   max-width: 300px;
   min-height: 100vh;
@@ -48,6 +50,26 @@
         color: $cor-texto-secundario;
         text-transform: uppercase;
         letter-spacing: 1px;
+      }
+
+      .playlist-scroll {
+        width: 100%;
+        overflow-y: auto;
+        max-height: calc(95vh - #{$h-playlist-scroll});
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        app-botao-menu {
+          .playlist-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            object-fit: cover;
+            vertical-align: middle;
+          }
+        }
       }
     }
   }

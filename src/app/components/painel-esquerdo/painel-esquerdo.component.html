@@ -30,10 +30,10 @@
     <span class="playlist-titulo">PLAYLISTS</span>
 
     <div class="playlist-scroll">
-      @for ( playlist of playlists ; track playlist.id) {
-        <img src="{{playlist.images.pop()?.url}}" alt="capa" />
-
-
+      @for ( playlist of playlists() ; track playlist.id) {
+        <app-botao-menu [nome]="playlist.name">
+          <img class="playlist-img" [src]="playlist.images[0].url" [alt]="playlist.id" />
+        </app-botao-menu>
       }
     </div>
   </div>
