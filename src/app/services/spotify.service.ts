@@ -1,6 +1,7 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {SpotifyConfiguration} from "../../enviroment/enviroment";
 import SpotifyWebApi from 'spotify-web-api-js';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class SpotifyService {
 
   spotifyApi = new SpotifyWebApi();
   usuario: SpotifyApi.CurrentUsersProfileResponse | null = null;
+  roteador = inject(Router);
 
   constructor() {}
 
@@ -126,5 +128,13 @@ export class SpotifyService {
       this.usuario = null;
       return null;
     }
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('code_verifier');
+    this.usuario = null;
+    this.spotifyApi.setAccessToken('');
+    this.roteador.navigate(['/login']);
   }
 }

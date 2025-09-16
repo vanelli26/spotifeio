@@ -3,13 +3,15 @@ import {BotaoMenuComponent} from '../botao-menu/botao-menu.component';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faHome, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
 import {SpotifyService} from '../../services/spotify.service';
+import {UsuarioInfoComponent} from '../usuario-info/usuario-info.component';
 
 @Component({
   selector: 'app-painel-esquerdo',
   standalone: true,
   imports: [
     BotaoMenuComponent,
-    FaIconComponent
+    FaIconComponent,
+    UsuarioInfoComponent
   ],
   templateUrl: './painel-esquerdo.component.html',
   styleUrl: './painel-esquerdo.component.scss',
