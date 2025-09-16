@@ -1,0 +1,3 @@
+<img [src]="usuario()?.images?.pop()?.url" alt="avatar" />
+<span>{{usuario()?.display_name}}</span>
+<fa-icon [icon]="faSignOut" (click)="logout()"></fa-icon>
